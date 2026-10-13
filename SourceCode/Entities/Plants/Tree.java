@@ -7,6 +7,7 @@ public class Tree implements Plant {
 
     public int size;
     private int lifeTime;
+    public List<>
 
     //tree cosntructor, lifetime is not ment to be accessed and will not change
     Tree (int grow, int x, int, y, int size, int lifetime){
@@ -18,5 +19,7 @@ public class Tree implements Plant {
     }
 
     
-
+    public expand (int grow) {
+        this.size += grow;
+    }
 }

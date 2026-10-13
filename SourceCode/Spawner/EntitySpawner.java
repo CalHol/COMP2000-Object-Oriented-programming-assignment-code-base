@@ -7,8 +7,13 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.Object;
 
-public class EntitiySpawner {
+public class EntitySpawner {
 
-    private final Random rng
-    private final double spawn
+    private final Random rand;
+    private final double spawn;
+
+
+    public EntitySpawner { 
+
+    }
 } 
