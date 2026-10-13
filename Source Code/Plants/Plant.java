@@ -1,5 +1,0 @@
-
-
-abstract Plant {
-    void grow;
-}
