@@ -1,6 +1,6 @@
 
 
-public class Tree implements Plant {
+public class Tree extends Plant {
     public int grow;
     public int x; 
     public int y;

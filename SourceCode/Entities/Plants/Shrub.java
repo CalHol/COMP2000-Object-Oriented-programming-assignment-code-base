@@ -1,6 +1,6 @@
 
 
-public class Shrub implements Plant {
+public class Shrub extends Plant {
     int grow;
     int x;
     int y; 
