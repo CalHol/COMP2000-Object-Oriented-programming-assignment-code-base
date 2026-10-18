@@ -9,5 +9,6 @@ public class WolfEat {
     }
 
     public void eatSheep(Sheep sheep) {
+        
     }
 }

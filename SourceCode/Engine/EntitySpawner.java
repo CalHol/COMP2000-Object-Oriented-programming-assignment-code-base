@@ -13,6 +13,7 @@ import java.util.List;
 public class EntitySpawner {
 
     private final Random rand;
+    private final Random timeDelay = new Random();
 
     private final List<Sheep> sheep = new ArrayList<>();
     private final List<Wolf> wolves = new ArrayList<>();
@@ -22,32 +23,25 @@ public class EntitySpawner {
 
     public EntitySpawner(Random rand){
         this.rand = rand;
+        this.timeDelay.setSeed(System.currentTimeMillis());
+
     }
 
     public void spawnSheep(int count){
         for (int i = 0; i < count; i++){
             int x = rand.nextInt(100);
             int y = rand.nextInt(100);
-            Sheep s = new Sheep(x, y, 10, 50);
+            Sheep s = new Sheep(10, x, y, 10, 50);
             sheep.add(s);
         }
     }
 
-    public void spawnWolves(int count){
+    public void spawnShrubs(int count){
         for (int i = 0; i < count; i++){
             int x = rand.nextInt(100);
             int y = rand.nextInt(100);
-            Wolf w = new Wolf(x, y, 10);
-            wolves.add(w);
-        }
-    }
-
-    public void spawnTrees(int count){
-        for (int i = 0; i < count; i++){
-            int x = rand.nextInt(100);
-            int y = rand.nextInt(100);
-            Tree t = new Tree(10, x, y, 10, 50);
-            trees.add(t);
+            Shrub s = new Shrub(5, x, y, 5, 20);
+            shrubs.add(s);
         }
     }
 } 

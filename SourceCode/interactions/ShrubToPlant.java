@@ -13,6 +13,7 @@ public class ShrubToPlant {
             // Convert shrub to plant
             Tree tree = new Tree(shrub.grow, shrub.x, shrub.y, shrub.size, shrub.lifetime);
             spawner.add(tree);
+            spawner.shrubs.remove(shrub);
         }
     }
 }
