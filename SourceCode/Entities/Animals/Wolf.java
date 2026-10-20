@@ -17,4 +17,9 @@ public class Wolf implements Animal {
         this.y = y;
     }
 
+    @Override
+    public void update() {
+        
+    }
+
 }

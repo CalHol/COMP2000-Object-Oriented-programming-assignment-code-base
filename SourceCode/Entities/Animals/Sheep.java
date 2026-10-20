@@ -4,12 +4,12 @@ public class Sheep implements Animal {
     
     int x;
     int y;
-    int lifeTime;
+    String colour;
 
-    public Sheep(int x, int y, int lifeTime){
+    public Sheep(int x, int y, String colour){
         this.x = x;
         this.y = y;
-        this.lifeTime = lifeTime;
+        this.colour = colour;
     }
 
     public void move (int x, int y){
@@ -17,5 +17,12 @@ public class Sheep implements Animal {
         this.y = y;
     }
 
+    public String getColour(){
+        return this.colour;
+    }
 
+    @Override 
+    public void update() {
+
+    }
 }
