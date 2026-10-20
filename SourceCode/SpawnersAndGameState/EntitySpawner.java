@@ -28,6 +28,7 @@ public class EntitySpawner {
         this.elapsedTicks = 0;
     }
 
+    //checks if the spawn interval has been reached and spawns an entity if it has
     public void tick(World world){
         elapsedTicks++;
 
