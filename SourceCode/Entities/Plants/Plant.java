@@ -1,7 +1,17 @@
 
+public abstract class Plant extends Entity {
+    protected int growth;
 
-public class Plant {
-    public int grow;
-    public int x;
-    public int y;
+    public Plant(int x, int y, int growth) {
+        super(x, y);
+        this.growth = growth;
+    }
+
+    public int getGrowth() {
+        return growth;
+    }
+
+    public void grow() {
+        growth++;
+    }
 }

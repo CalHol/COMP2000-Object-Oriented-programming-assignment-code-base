@@ -1,25 +1,17 @@
 
+import java.awt.Color;
 
 public class Tree extends Plant {
-    public int grow;
-    public int x; 
-    public int y;
-
-    public int size;
-    private int lifeTime;
-
-
-    //tree cosntructor, lifetime is not ment to be accessed and will not change
-    Tree (int grow, int x, int y, int size, int lifetime){
-        this.grow = grow;
-        this.x = x;
-        this.y = y;
-        this.size = 10;
-        this.lifetime = 50;
+    public Tree(int x, int y, int growth) {
+        super(x, y, growth);
     }
 
-    
-    public expand (int grow) {
-        this.size += grow;
+    public void expand(int amount) {
+        growth += amount;
+    }
+
+    @Override
+    public Color getColor() {
+        return new Color(34, 139, 34);
     }
 }

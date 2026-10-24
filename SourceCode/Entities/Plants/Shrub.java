@@ -1,14 +1,13 @@
 
+import java.awt.Color;
 
 public class Shrub extends Plant {
-    int grow;
-    int x;
-    int y; 
-
-    Shrub(int grow, int x, int y){
-        this.grow = grow;
-        this.x = x;
-        this.y = y;
+    public Shrub(int x, int y, int growth) {
+        super(x, y, growth);
     }
 
+    @Override
+    public Color getColor() {
+        return new Color(124, 205, 124);
+    }
 }

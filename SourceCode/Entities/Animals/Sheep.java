@@ -1,22 +1,18 @@
 
+import java.awt.Color;
 
-public class Sheep implements Animal {
-    
-    int x;
-    int y;
-
-    public Sheep(int x, int y){
-        this.x = x;
-        this.y = y;
+public class Sheep extends Animal {
+    public Sheep(int x, int y, int lifeTime) {
+        super(x, y, lifeTime);
     }
 
-    public void move (int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-
-    @Override 
+    @Override
     public void update() {
+        lifeTime--;
+    }
 
+    @Override
+    public Color getColor() {
+        return new Color(230, 230, 230);
     }
 }
