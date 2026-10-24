@@ -49,6 +49,14 @@ public class EntityDisplay extends JFrame {
                     }
                 }
             }
+
+            g.setColor(Color.BLACK);
+            for (int row = 0; row <= ROWS; row++) {
+                g.drawLine(0, row * CELL_SIZE, COLS * CELL_SIZE, row * CELL_SIZE);
+            }
+            for (int col = 0; col <= COLS; col++) {
+                g.drawLine(col * CELL_SIZE, 0, col * CELL_SIZE, ROWS * CELL_SIZE);
+            }
         }
     }
 }
