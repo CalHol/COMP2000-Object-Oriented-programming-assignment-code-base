@@ -27,9 +27,10 @@ public class World {
     }
 
     public void addEntity(Entity entity) {
-        if (entity != null) {
-            entities.add(entity);
+        if (entity == null|| !isInside(entity.getX(), entity.getY())) {
+            throw new IllegalArgumentException("Entity is null or out of bounds");
         }
+        entities.add(entity);
     }
 
     public Entity getEntityAt(int x, int y) {
