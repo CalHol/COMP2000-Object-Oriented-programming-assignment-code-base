@@ -8,6 +8,6 @@ public class Shrub extends Plant {
 
     @Override
     public Color getColor() {
-        return new Color(124, 205, 124);
+        return new Color(0, 255, 0);
     }
 }

@@ -19,7 +19,7 @@ public class EntityDisplay extends JFrame {
     static final int COLS = 32;
     static final int PREFERRED_CELL_SIZE = 30;
     static final int MIN_SPAWN_INTERVAL_TICKS = 17;
-    static final int MAX_SPAWN_INTERVAL_TICKS = 60;
+    static final int MAX_SPAWN_INTERVAL_TICKS = 24;
     private final World world = new World(ROWS, COLS);
     private final GridPanel gridPanel = new GridPanel();
     private final JLabel countLabel = new JLabel();

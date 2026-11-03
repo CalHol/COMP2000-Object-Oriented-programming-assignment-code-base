@@ -13,6 +13,6 @@ public class Sheep extends Animal {
 
     @Override
     public Color getColor() {
-        return new Color(230, 230, 230);
+        return Color.GRAY;
     }
 }

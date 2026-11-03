@@ -13,6 +13,6 @@ public class Wolf extends Animal {
 
     @Override
     public Color getColor() {
-        return Color.DARK_GRAY;
+        return Color.RED;
     }
 }
