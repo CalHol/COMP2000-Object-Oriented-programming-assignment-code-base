@@ -9,7 +9,7 @@ import javax.swing.Timer;
 public class EntityDisplay extends JFrame {
     static final int ROWS = 32;
     static final int COLS = 32;
-    static final int CELL_SIZE = 20;
+    static final int CELL_SIZE = 30;
 
     private final World world = new World(ROWS, COLS);
     private final GridPanel gridPanel = new GridPanel();
