@@ -72,10 +72,13 @@ public class EntityDisplay extends JFrame {
             return nameOrder != 0 ? nameOrder : Integer.compare(first.getAge(), second.getAge());
         });
 
-        StringBuilder rows = new StringBuilder("Name      Age\n----------------\n");
+        StringBuilder rows = new StringBuilder("Name        Age   Eat\n--------------------\n");
         for (Entity entity : sortedEntities) {
             counts.merge(entity.getName(), 1, Integer::sum);
-            rows.append(String.format("%-9s %d%n", entity.getName(), entity.getAge()));
+            String eatCount = entity instanceof Animal
+                    ? Integer.toString(((Animal) entity).getEatCount())
+                    : "-";
+            rows.append(String.format("%-10s %5d %5s%n", entity.getName(), entity.getAge(), eatCount));
         }
 
         countLabel.setText(String.format(

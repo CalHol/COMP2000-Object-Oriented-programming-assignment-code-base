@@ -31,6 +31,7 @@ public class Spawner {
     }
 
     private int chooseSpawnInterval() {
-        return ThreadLocalRandom.current().nextInt(minSpawnInterval, maxSpawnInterval + 1);
+        int interval = ThreadLocalRandom.current().nextInt(minSpawnInterval, maxSpawnInterval + 1);
+        return Math.max(1, interval / 2);
     }
 }
