@@ -1,7 +1,7 @@
 public class AnimalMove {
-    public void moveAnimal(Entity entity) {
-        if (entity != null) {
-            entity.move(entity.getX(), entity.getY());
+    public void moveAnimal(Animal animal) {
+        if (animal != null) {
+            animal.move(animal.getX(), animal.getY());
         }
     }
 }

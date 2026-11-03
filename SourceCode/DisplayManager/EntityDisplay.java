@@ -9,8 +9,7 @@ import javax.swing.Timer;
 public class EntityDisplay extends JFrame {
     static final int ROWS = 32;
     static final int COLS = 32;
-    static final int CELL_SIZE = 30;
-
+    static final int PREFERRED_CELL_SIZE = 30;
     private final World world = new World(ROWS, COLS);
     private final GridPanel gridPanel = new GridPanel();
 
@@ -26,36 +25,41 @@ public class EntityDisplay extends JFrame {
         });
         timer.start();
 
-        pack();
-        setLocationRelativeTo(null);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
     }
 
     class GridPanel extends JPanel {
         GridPanel() {
-            setPreferredSize(new Dimension(COLS * CELL_SIZE, ROWS * CELL_SIZE));
+            setPreferredSize(new Dimension(COLS * PREFERRED_CELL_SIZE, ROWS * PREFERRED_CELL_SIZE));
             setBackground(Color.WHITE);
         }
 
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
+            int cellSize = Math.max(1, Math.min(getWidth() / COLS, getHeight() / ROWS));
+            int gridWidth = COLS * cellSize;
+            int gridHeight = ROWS * cellSize;
+            int gridX = (getWidth() - gridWidth) / 2;
+            int gridY = (getHeight() - gridHeight) / 2;
+
             for (int row = 0; row < ROWS; row++) {
                 for (int col = 0; col < COLS; col++) {
                     Entity entity = world.getEntityAt(col, row);
                     if (entity != null) {
                         g.setColor(entity.getColor());
-                        g.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                        g.fillRect(gridX + col * cellSize, gridY + row * cellSize, cellSize, cellSize);
                     }
                 }
             }
 
             g.setColor(Color.BLACK);
             for (int row = 0; row <= ROWS; row++) {
-                g.drawLine(0, row * CELL_SIZE, COLS * CELL_SIZE, row * CELL_SIZE);
+                g.drawLine(gridX, gridY + row * cellSize, gridX + gridWidth, gridY + row * cellSize);
             }
             for (int col = 0; col <= COLS; col++) {
-                g.drawLine(col * CELL_SIZE, 0, col * CELL_SIZE, ROWS * CELL_SIZE);
+                g.drawLine(gridX + col * cellSize, gridY, gridX + col * cellSize, gridY + gridHeight);
             }
         }
     }
