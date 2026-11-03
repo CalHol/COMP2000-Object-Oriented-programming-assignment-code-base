@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.BiFunction;
 
 public class World {
     private final int rows;
@@ -31,6 +32,25 @@ public class World {
             throw new IllegalArgumentException("Entity is null or out of bounds");
         }
         entities.add(entity);
+    }
+
+    public boolean addEntityAtRandomLocation(BiFunction<Integer, Integer, Entity> entityFactory) {
+        List<int[]> emptyLocations = new ArrayList<>();
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                if (getEntityAt(x, y) == null) {
+                    emptyLocations.add(new int[] {x, y});
+                }
+            }
+        }
+
+        if (emptyLocations.isEmpty()) {
+            return false;
+        }
+
+        int[] location = emptyLocations.get(random.nextInt(emptyLocations.size()));
+        addEntity(entityFactory.apply(location[0], location[1]));
+        return true;
     }
 
     public Entity getEntityAt(int x, int y) {

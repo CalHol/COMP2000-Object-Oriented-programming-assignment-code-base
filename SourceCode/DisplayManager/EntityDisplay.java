@@ -18,6 +18,8 @@ public class EntityDisplay extends JFrame {
     static final int ROWS = 32;
     static final int COLS = 32;
     static final int PREFERRED_CELL_SIZE = 30;
+    static final int MIN_SPAWN_INTERVAL_TICKS = 17;
+    static final int MAX_SPAWN_INTERVAL_TICKS = 60;
     private final World world = new World(ROWS, COLS);
     private final GridPanel gridPanel = new GridPanel();
     private final JLabel countLabel = new JLabel();
@@ -27,6 +29,9 @@ public class EntityDisplay extends JFrame {
         setTitle("TestDisplay");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        world.addSpawner(new Spawner((x, y) -> new Sheep(x, y, 10), MIN_SPAWN_INTERVAL_TICKS, MAX_SPAWN_INTERVAL_TICKS));
+        world.addSpawner(new Spawner((x, y) -> new Shrub(x, y, 1), MIN_SPAWN_INTERVAL_TICKS, MAX_SPAWN_INTERVAL_TICKS));
+        world.addSpawner(new Spawner((x, y) -> new Wolf(x, y, 10), MIN_SPAWN_INTERVAL_TICKS, MAX_SPAWN_INTERVAL_TICKS));
         add(gridPanel, BorderLayout.CENTER);
         add(createCounterPanel(), BorderLayout.EAST);
         updateEntityCounter();

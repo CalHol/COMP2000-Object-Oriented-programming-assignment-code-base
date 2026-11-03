@@ -1,18 +1,23 @@
-import java.util.function.Supplier;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.BiFunction;
 
 public class Spawner {
-    private final int spawnInterval;
-    private final Supplier<Entity> entitySupplier;
+    private final int minSpawnInterval;
+    private final int maxSpawnInterval;
+    private final BiFunction<Integer, Integer, Entity> entityFactory;
     private int elapsedTicks;
+    private int spawnInterval;
 
-    public Spawner(Supplier<Entity> entitySupplier, int spawnInterval) {
-        if (spawnInterval <= 0) {
-            throw new IllegalArgumentException("Spawn interval must be greater than 0");
+    public Spawner(BiFunction<Integer, Integer, Entity> entityFactory, int minSpawnInterval, int maxSpawnInterval) {
+        if (minSpawnInterval <= 0 || maxSpawnInterval < minSpawnInterval) {
+            throw new IllegalArgumentException("Spawn interval range must be positive and ordered");
         }
 
-        this.entitySupplier = entitySupplier;
-        this.spawnInterval = spawnInterval;
+        this.entityFactory = entityFactory;
+        this.minSpawnInterval = minSpawnInterval;
+        this.maxSpawnInterval = maxSpawnInterval;
         this.elapsedTicks = 0;
+        this.spawnInterval = chooseSpawnInterval();
     }
 
     public void tick(World world) {
@@ -20,7 +25,12 @@ public class Spawner {
 
         if (elapsedTicks >= spawnInterval) {
             elapsedTicks = 0;
-            world.addEntity(entitySupplier.get());
+            world.addEntityAtRandomLocation(entityFactory);
+            spawnInterval = chooseSpawnInterval();
         }
+    }
+
+    private int chooseSpawnInterval() {
+        return ThreadLocalRandom.current().nextInt(minSpawnInterval, maxSpawnInterval + 1);
     }
 }
