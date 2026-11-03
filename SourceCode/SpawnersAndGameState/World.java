@@ -42,6 +42,10 @@ public class World {
         return null;
     }
 
+    public List<Entity> getEntities() {
+        return new ArrayList<>(entities);
+    }
+
     public boolean isInside(int x, int y) {
         return x >= 0 && x < cols && y >= 0 && y < rows;
     }
@@ -52,6 +56,7 @@ public class World {
         }
 
         for (Entity entity : new ArrayList<>(entities)) {
+            entity.incrementAge();
             if (entity instanceof Animal) {
                 ((Animal) entity).update();
             }
