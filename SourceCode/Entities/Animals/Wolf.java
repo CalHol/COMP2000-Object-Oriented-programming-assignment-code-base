@@ -2,13 +2,13 @@
 import java.awt.Color;
 
 public class Wolf extends Animal {
-    public Wolf(int x, int y, int lifeTime) {
-        super(x, y, lifeTime);
+    public Wolf(int x, int y) {
+        super(x, y);
     }
 
     @Override
     public void update() {
-        lifeTime--;
+        lifeTime++;
     }
 
     @Override

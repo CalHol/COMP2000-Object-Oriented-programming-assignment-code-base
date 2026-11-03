@@ -2,17 +2,17 @@
 import java.awt.Color;
 
 public class Sheep extends Animal {
-    public Sheep(int x, int y, int lifeTime) {
-        super(x, y, lifeTime);
+    public Sheep(int x, int y) {
+        super(x, y);
     }
 
     @Override
     public void update() {
-        lifeTime--;
+        lifeTime++;
     }
 
     @Override
     public Color getColor() {
-        return Color.GRAY;
+        return new Color(32, 32, 32);
     }
 }

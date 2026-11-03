@@ -1,10 +1,9 @@
 
 public abstract class Animal extends Entity {
-    protected int lifeTime;
+    protected int lifeTime = 0;
 
-    public Animal(int x, int y, int lifeTime) {
+    public Animal(int x, int y) {
         super(x, y);
-        this.lifeTime = lifeTime;
     }
 
     public int getLifeTime() {

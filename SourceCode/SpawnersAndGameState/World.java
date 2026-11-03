@@ -13,14 +13,6 @@ public class World {
     public World(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
-
-        for (int i = 0; i < 20; i++) {
-            int x = random.nextInt(cols);
-            int y = random.nextInt(rows);
-            if (getEntityAt(x, y) == null) {
-                entities.add(new Sheep(x, y, 10));
-            }
-        }
     }
 
     public void addSpawner(Spawner spawner) {
@@ -78,7 +70,11 @@ public class World {
         for (Entity entity : new ArrayList<>(entities)) {
             entity.incrementAge();
             if (entity instanceof Animal) {
-                ((Animal) entity).update();
+                Animal animal = (Animal) entity;
+                animal.update();
+                if (animal.getLifeTime() >= 50) {
+                    entities.remove(animal);
+                }
             }
         }
     }

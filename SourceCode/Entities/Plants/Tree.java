@@ -12,6 +12,6 @@ public class Tree extends Plant {
 
     @Override
     public Color getColor() {
-        return new Color(34, 139, 34);
+        return new Color(0, 102, 0);
     }
 }
