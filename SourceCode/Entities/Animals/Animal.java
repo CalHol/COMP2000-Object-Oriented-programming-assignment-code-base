@@ -2,9 +2,11 @@
 public abstract class Animal extends Entity {
     protected int lifeTime = 0;
     private int eatCount;
+    private final AnimalBehavior behavior;
 
-    public Animal(int x, int y) {
+    public Animal(int x, int y, AnimalBehavior behavior) {
         super(x, y);
+        this.behavior = behavior;
     }
 
     public int getLifeTime() {
@@ -25,6 +27,10 @@ public abstract class Animal extends Entity {
 
     public void incrementEatCount() {
         eatCount++;
+    }
+
+    public void act(World world) {
+        behavior.act(this, world);
     }
 
     public void move(int newX, int newY) {

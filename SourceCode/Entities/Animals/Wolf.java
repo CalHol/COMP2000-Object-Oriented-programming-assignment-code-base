@@ -3,7 +3,7 @@ import java.awt.Color;
 
 public class Wolf extends Animal {
     public Wolf(int x, int y) {
-        super(x, y);
+        super(x, y, new WolfBehavior());
     }
 
     @Override

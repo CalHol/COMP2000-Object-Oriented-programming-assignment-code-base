@@ -26,6 +26,10 @@ public class World {
         entities.add(entity);
     }
 
+    public boolean removeEntity(Entity entity) {
+        return entities.remove(entity);
+    }
+
     public boolean addEntityAtRandomLocation(BiFunction<Integer, Integer, Entity> entityFactory) {
         List<int[]> emptyLocations = new ArrayList<>();
         for (int y = 0; y < rows; y++) {
@@ -75,94 +79,12 @@ public class World {
                 entities.add(new Tree(shrub.getX(), shrub.getY(), shrub.getGrowth()));
             } else if (entity instanceof Animal) {
                 Animal animal = (Animal) entity;
-                if (animal instanceof Sheep) {
-                    moveSheepTowardClosestShrub((Sheep) animal);
-                } else if (animal instanceof Wolf) {
-                    moveWolfTowardClosestSheep((Wolf) animal);
-                }
+                animal.act(this);
                 animal.update();
                 if (animal.getLifeTime() >= 50) {
                     entities.remove(animal);
                 }
             }
-        }
-    }
-
-    private void moveSheepTowardClosestShrub(Sheep sheep) {
-        Shrub closestShrub = null;
-        int closestDistance = Integer.MAX_VALUE;
-
-        for (Entity entity : entities) {
-            if (entity instanceof Shrub) {
-                Shrub shrub = (Shrub) entity;
-                int distance = Math.abs(shrub.getX() - sheep.getX())
-                        + Math.abs(shrub.getY() - sheep.getY());
-                if (distance < closestDistance) {
-                    closestShrub = shrub;
-                    closestDistance = distance;
-                }
-            }
-        }
-
-        if (closestShrub == null || closestDistance == 0) {
-            return;
-        }
-
-        if (closestDistance == 1) {
-            if (entities.remove(closestShrub)) {
-                sheep.incrementEatCount();
-            }
-            return;
-        }
-
-        if (sheep.getLifeTime() % 2 != 0) {
-            return;
-        }
-
-        int stepX = Integer.compare(closestShrub.getX(), sheep.getX());
-        int stepY = Integer.compare(closestShrub.getY(), sheep.getY());
-
-        if (stepX != 0 && getEntityAt(sheep.getX() + stepX, sheep.getY()) == null) {
-            sheep.move(sheep.getX() + stepX, sheep.getY());
-        } else if (stepY != 0 && getEntityAt(sheep.getX(), sheep.getY() + stepY) == null) {
-            sheep.move(sheep.getX(), sheep.getY() + stepY);
-        }
-    }
-
-    private void moveWolfTowardClosestSheep(Wolf wolf) {
-        Sheep closestSheep = null;
-        int closestDistance = Integer.MAX_VALUE;
-
-        for (Entity entity : entities) {
-            if (entity instanceof Sheep) {
-                Sheep sheep = (Sheep) entity;
-                int distance = Math.abs(sheep.getX() - wolf.getX())
-                        + Math.abs(sheep.getY() - wolf.getY());
-                if (distance < closestDistance) {
-                    closestSheep = sheep;
-                    closestDistance = distance;
-                }
-            }
-        }
-
-        if (closestSheep == null) {
-            return;
-        }
-
-        if (closestDistance <= 1) {
-            if (entities.remove(closestSheep)) {
-                wolf.incrementEatCount();
-            }
-            return;
-        }
-
-        int stepX = Integer.compare(closestSheep.getX(), wolf.getX());
-        int stepY = Integer.compare(closestSheep.getY(), wolf.getY());
-
-        if (stepX != 0 && getEntityAt(wolf.getX() + stepX, wolf.getY()) == null) {
-            wolf.move(wolf.getX() + stepX, wolf.getY());
-        } else if (stepY != 0 && getEntityAt(wolf.getX(), wolf.getY() + stepY) == null) {
-            wolf.move(wolf.getX(), wolf.getY() + stepY);
         }
     }
 

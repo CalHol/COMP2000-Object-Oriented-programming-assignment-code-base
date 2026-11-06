@@ -2,10 +2,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -60,21 +60,15 @@ public class EntityDisplay extends JFrame {
     }
 
     private void updateEntityCounter() {
-        Map<String, Integer> counts = new LinkedHashMap<>();
-        counts.put("Tree", 0);
-        counts.put("Shrub", 0);
-        counts.put("Sheep", 0);
-        counts.put("Wolf", 0);
-
-        List<Entity> sortedEntities = new ArrayList<>(world.getEntities());
-        sortedEntities.sort((first, second) -> {
-            int nameOrder = first.getName().compareTo(second.getName());
-            return nameOrder != 0 ? nameOrder : Integer.compare(first.getAge(), second.getAge());
-        });
+        List<Entity> entities = world.getEntities();
+        Map<String, Long> counts = entities.parallelStream()
+            .collect(Collectors.groupingByConcurrent(Entity::getName, Collectors.counting()));
+        List<Entity> sortedEntities = entities.stream()
+            .sorted(Comparator.comparing(Entity::getName).thenComparingInt(Entity::getAge))
+            .collect(Collectors.toList());
 
         StringBuilder rows = new StringBuilder("Name        Age   Eat\n--------------------\n");
         for (Entity entity : sortedEntities) {
-            counts.merge(entity.getName(), 1, Integer::sum);
             String eatCount = entity instanceof Animal
                     ? Integer.toString(((Animal) entity).getEatCount())
                     : "-";
@@ -83,7 +77,8 @@ public class EntityDisplay extends JFrame {
 
         countLabel.setText(String.format(
                 "<html><b>Entity Counter</b><br>Tree: %d &nbsp; Shrub: %d<br>Sheep: %d &nbsp; Wolf: %d</html>",
-                counts.get("Tree"), counts.get("Shrub"), counts.get("Sheep"), counts.get("Wolf")));
+            counts.getOrDefault("Tree", 0L), counts.getOrDefault("Shrub", 0L),
+            counts.getOrDefault("Sheep", 0L), counts.getOrDefault("Wolf", 0L)));
         entityList.setText(rows.toString());
         entityList.setCaretPosition(0);
     }
