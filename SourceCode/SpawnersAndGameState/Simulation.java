@@ -8,7 +8,6 @@ public class Simulation {
         world = new World(rows, cols);
         world.addSpawner(new Spawner(entityFactory::createSheep, MIN_SPAWN_INTERVAL, MAX_SPAWN_INTERVAL));
         world.addSpawner(new Spawner(entityFactory::createWolf, MIN_SPAWN_INTERVAL, MAX_SPAWN_INTERVAL));
-        world.addSpawner(new Spawner((x, y) -> entityFactory.createTree(x, y, 1), MIN_SPAWN_INTERVAL, MAX_SPAWN_INTERVAL));
         world.addSpawner(new Spawner((x, y) -> entityFactory.createShrub(x, y, 1), MIN_SPAWN_INTERVAL, MAX_SPAWN_INTERVAL));
     }
 
